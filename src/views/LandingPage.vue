@@ -1,13 +1,16 @@
 <template>
-  <Player />
+  <Register />
 </template>
 
 <script>
-import Player from "../components/Player.vue";
+import Register from "../components/Register.vue";
 export default {
   name: "landing-page",
+  data() {
+    return {};
+  },
   components: {
-    Player
+    Register
   }
 };
 </script>

@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import GameArena from '../views/GameArena.vue'
 import LandingPage from '../views/LandingPage.vue'
 import Lobby from '../views/Lobby.vue'
 import GameRoom from '../views/GameRoom.vue'
-import GameArena from '../views/GameArena.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/arena',
+    name: 'game-arena',
+    component: GameArena
+  },
   {
     path: '/',
     name: 'landing-page',
@@ -23,11 +28,6 @@ const routes = [
     name: 'game-room',
     component: GameRoom
   },
-  {
-    path: '/arena',
-    name: 'game-arena',
-    component: GameArena
-  }
 ]
 
 const router = new VueRouter({

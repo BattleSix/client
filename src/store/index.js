@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     baseUrl: 'http://localhost:3000',
-    socket: io('http://localhost:3000'),
+    // socket: io('http://localhost:3000'),
     groupA: {
       score: 70,
       players: []

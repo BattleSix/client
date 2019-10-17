@@ -8,6 +8,9 @@
     <v-btn text href="https://github.com/vuetifyjs/vuetify/releases/latest" target="_blank">
       <span class="mr-2">created by Team 8</span>
     </v-btn>
+    <v-btn text>
+      <span class="mr-2">Logout</span>
+    </v-btn>
   </v-app-bar>
 </template>
 

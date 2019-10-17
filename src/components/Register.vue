@@ -1,6 +1,6 @@
 <template>
-  <div class="form-player">
-    <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+  <div class="form-player d-flex justify-center align-center my-10">
+    <v-form ref="form" v-model="valid">
       <v-text-field
         v-model="username"
         :counter="10"
@@ -11,7 +11,6 @@
 
       <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">Submit</v-btn>
       <v-btn color="error" class="mr-4" @click="reset">Reset Form</v-btn>
-      <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn>
     </v-form>
   </div>
 </template>
@@ -24,7 +23,8 @@ export default {
     username: "",
     usernameRules: [
       v => !!v || "Username is required",
-      v => (v && v.length <= 10) || "Username must be less than 10 characters"
+      v => (v && v.length <= 10) || "Username must be less than 10 characters",
+      v => (v && v.length > 3) || "Username must be at least 3 characters"
     ]
   }),
 
@@ -32,17 +32,19 @@ export default {
     validate() {
       if (this.$refs.form.validate()) {
         this.snackbar = true;
+        this.$router.push("/lobby");
       }
     },
     reset() {
       this.$refs.form.reset();
-    },
-    resetValidation() {
       this.$refs.form.resetValidation();
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
+#form-player {
+  margin: auto;
+}
 </style>

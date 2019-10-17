@@ -10,12 +10,44 @@ export default new Vuex.Store({
     baseUrl: 'http://localhost:3000',
     // socket: io('http://localhost:3000'),
     groupA: {
-      score: 70,
-      players: []
+      score: 120,
+      players: [
+        {
+          id: 123344,
+          name: "ghozi",
+          score: 30
+        },
+        {
+          id: 198944,
+          name: "andreas",
+          score: 30
+        },
+        {
+          id: 122392,
+          name: "aldi",
+          score: 30
+        }
+      ]
     },
     groupB: {
-      score: 90,
-      players: []
+      score: 0,
+      players: [
+        {
+          id: 123344,
+          name: "kosasih",
+          score: 30
+        },
+        {
+          id: 198944,
+          name: "botol",
+          score: 30
+        },
+        {
+          id: 122392,
+          name: "mouse",
+          score: 30
+        }
+      ]
     },
     rooms: [],
     player: {

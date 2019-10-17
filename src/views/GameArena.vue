@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <Room />
-  </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "lobby",
-  components: {}
+  name: "game-arena",
+  data() {
+    return{
+      
+    }
+  }
 };
 </script>
 

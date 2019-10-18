@@ -15,10 +15,10 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field label="Room title*" required></v-text-field>
+                  <v-text-field label="Room title*" required v-model="name"></v-text-field>
                 </v-col>
                 <v-col cols="12">
-                  <v-text-field label="Room description"></v-text-field>
+                  <v-text-field label="Room description" v-model="description"></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -27,7 +27,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="dialog = false">Create</v-btn>
+            <v-btn color="blue darken-1" text @click="createRoom">Create</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -40,8 +40,20 @@ export default {
   name: "create-room",
   data() {
     return {
-      dialog: false
+      dialog: false,
+      name: "",
+      description: ""
     };
+  },
+  methods: {
+    createRoom() {
+      console.log({ name: this.name, description: this.description });
+      this.$store.dispatch("createRoom", {
+        name: this.name,
+        description: this.description
+      });
+      this.dialog = false;
+    }
   }
 };
 </script>

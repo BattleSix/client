@@ -4,7 +4,7 @@
       <v-card class="mx-auto my-10" width="400" tile>
         <v-list shaped>
           <v-subheader>TEAM A</v-subheader>
-          <v-list-item-group v-model="item" color="primary">
+          <v-list-item-group color="primary">
             <v-list-item v-for="(item, i) in groupA" :key="i">
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>
@@ -20,7 +20,7 @@
       <v-card class="mx-auto my-10" width="400" tile>
         <v-list shaped>
           <v-subheader>TEAM B</v-subheader>
-          <v-list-item-group v-model="item" color="primary">
+          <v-list-item-group color="primary">
             <v-list-item v-for="(item, i) in groupB" :key="i">
               <v-list-item-icon>
                 <v-icon v-text="item.icon"></v-icon>

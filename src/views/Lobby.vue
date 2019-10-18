@@ -21,7 +21,7 @@ export default {
   },
   methods: {},
   created() {
-    this.$store.dispatch("find");
+    this.$store.dispatch("findRoom");
   }
 };
 </script>

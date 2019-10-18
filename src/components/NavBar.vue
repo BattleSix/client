@@ -9,7 +9,7 @@
       <span class="mr-2">created by Team 8</span>
     </v-btn>
     <v-btn text>
-      <span class="mr-2">Logout</span>
+      <span class="mr-2" @click="logout">Logout</span>
     </v-btn>
   </v-app-bar>
 </template>
@@ -19,6 +19,12 @@ export default {
   name: "navbar",
   data() {
     return {};
+  },
+  methods : {
+    logout(){
+      localStorage.removeItem('token')
+      this.$router.push('/')
+    }
   }
 };
 </script>

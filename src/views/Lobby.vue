@@ -8,13 +8,13 @@
 <script>
 import RoomCard from "@/components/RoomCard";
 import CreateRoom from "@/components/CreateRoom";
+import { mapState } from "vuex";
 export default {
   name: "lobby",
   data() {
-    return {
-      rooms: this.$store.state.rooms
-    };
+    return {};
   },
+  computed: mapState(["rooms"]),
   components: {
     RoomCard,
     CreateRoom

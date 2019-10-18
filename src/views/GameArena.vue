@@ -9,6 +9,10 @@
         </v-container>
       </v-card>
 
+      <div class="timer">
+        <h1>5</h1> <!-- INI DIISI TIMER AMBIL DARI STORE -->
+      </div>
+
       <v-card min-width="200" class="mx-auto color">
         <v-container class="content">
           <h5> Team B </h5>
@@ -40,7 +44,8 @@ export default {
   data() {
     return {
       teamA: this.$store.state.groupA,
-      teamB: this.$store.state.groupB
+      teamB: this.$store.state.groupB,
+      
     };
   }
 };
@@ -80,5 +85,9 @@ export default {
 }
 .color{
   background-color: #99C24D;
+}
+.timer h1{
+  font-weight: 700;
+  font-size: 72px;
 }
 </style>

@@ -1,16 +1,17 @@
 <template>
   <div>
+    <div v-text="room.name"></div>
     <div class="d-flex align-center">
       <v-card class="mx-auto my-10" width="400" tile>
         <v-list shaped>
           <v-subheader>TEAM A</v-subheader>
           <v-list-item-group color="primary">
-            <v-list-item v-for="(item, i) in groupA" :key="i">
+            <v-list-item v-for="(player, i) in room.groupA.players" :key="i">
               <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
+                <v-icon>mdi-account</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="item.username"></v-list-item-title>
+                <v-list-item-title v-text="player.name"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -21,12 +22,12 @@
         <v-list shaped>
           <v-subheader>TEAM B</v-subheader>
           <v-list-item-group color="primary">
-            <v-list-item v-for="(item, i) in groupB" :key="i">
+            <v-list-item v-for=" (player, i) in room.groupB.players" :key="i">
               <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
+                <v-icon>mdi-account</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title v-text="item.username"></v-list-item-title>
+                <v-list-item-title v-text="player.name"></v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -40,23 +41,14 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "game-room",
   data() {
-    return {
-      groupA: [
-        { username: "Andreas", icon: "mdi-account" },
-        { username: "Aldi", icon: "mdi-account" },
-        { username: "Ghozi", icon: "mdi-account" }
-      ],
-      groupB: [
-        { username: "Ayu", icon: "mdi-account" },
-        { username: "Nucky", icon: "mdi-account" },
-        { username: "Rizky", icon: "mdi-account" }
-      ]
-    };
+    return {};
   },
   components: {},
+  computed: mapState(["room"]),
   methods: {
     startGame() {
       this.$router.push("/arena");

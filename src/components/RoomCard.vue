@@ -1,7 +1,14 @@
 <template>
   <div class="room-card">
-    <div class="d-flex my-10">
-      <v-card class="mx-auto" max-width="344" outlined v-for="(room) in rooms" :key="room._id">
+    <div class="d-flex flex-wrap mx-10 my-10">
+      <v-card
+        class="mx-20"
+        width="400"
+        height="230"
+        outlined
+        v-for="(room) in rooms"
+        :key="room._id"
+      >
         <v-list-item three-line>
           <v-list-item-content>
             <div class="overline mb-4">GAME ROOM</div>
@@ -17,12 +24,12 @@
           </v-list-item-content>
 
           <v-list-item-avatar tile size="80" src>
-            <v-img src="https://api.adorable.io/avatars/285/ghozi.png"></v-img>
+            <v-img :src="getImage(room.roomMaster.name)"></v-img>
           </v-list-item-avatar>
         </v-list-item>
 
         <v-card-actions>
-          <v-btn text @click="joinRoom">Join Room</v-btn>
+          <v-btn text @click="joinRoom(room._id)">Join Room</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -36,8 +43,11 @@ export default {
     return {};
   },
   methods: {
-    joinRoom() {
-      this.$router.push("/room");
+    joinRoom(id) {
+      this.$store.dispatch("updatePlayer", id);
+    },
+    getImage(name) {
+      return `https://api.adorable.io/avatars/285/${name}.png`;
     }
   },
   props: ["rooms"]

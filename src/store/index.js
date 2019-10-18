@@ -28,11 +28,11 @@ export default new Vuex.Store({
       name: 'bakso',
       description: `kuy masukk`,
       groupA: {
-        score: 80,
+        score: 0,
         players: []
       },
       groupB: {
-        score: 90,
+        score: 0,
         players: []
       },
       status: `waiting`,
@@ -48,14 +48,17 @@ export default new Vuex.Store({
       localStorage.setItem('token', payload.id)
     },
     ADD_PLAYER_TOGROUP(state) {
-      if (state.groupA.players.length < 3) {
+      if (state.groupA.players.length <= 3) {
         state.groupA.players.push(state.player)
-      } else if (state.groupB.players.length < 3) {
+      } else if (state.groupB.players.length <= 3) {
         state.groupB.players.push(state.player)
       }
     },
-    UPDATEROOMS(state, payload) {
+    UPDATE_ROOMS(state, payload) {
       state.rooms = payload
+    },
+    UPDATE_ROOM(state, payload) {
+      state.room = payload
     }
   },
   actions: {
@@ -65,7 +68,7 @@ export default new Vuex.Store({
         url: `${context.state.baseUrl}`
       })
         .then(({ data }) => {
-          context.commit('UPDATEROOMS', data)
+          context.commit('UPDATE_ROOMS', data)
         })
         .catch(err => {
           console.log(err)
@@ -77,7 +80,7 @@ export default new Vuex.Store({
         url: `${context.state.baseUrl}/${id}`
       })
         .then(({ data }) => {
-          console.log(data, `<<<<<<<<<<<<<<<<<<<<<<< room by id`)
+          context.commit('UPDATE_ROOM', data)
         })
         .catch(err => {
           console.log(err)
@@ -115,6 +118,22 @@ export default new Vuex.Store({
     },
     updateStatusRoom(context) {
 
+    },
+    updatePlayer(context, id) {
+      axios({
+        method: 'patch',
+        url: `${context.state.baseUrl}/player/${id}`,
+        data: {
+          player: context.state.player
+        }
+      })
+        .then(() => {
+          context.dispatch('findByIdRoom', id)
+          router.push('/room')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   modules: {

@@ -1,10 +1,5 @@
 <template>
   <div class="room-card">
-    <div class="text-center d-flex justify-end mx-10 my-10">
-      <v-btn class="mx-2" fab dark color="indigo">
-        <v-icon dark>mdi-plus</v-icon>
-      </v-btn>
-    </div>
     <div class="d-flex my-10">
       <v-card class="mx-auto" max-width="344" outlined>
         <v-list-item three-line>

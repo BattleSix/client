@@ -1,7 +1,7 @@
 <template>
   <div>
     <CreateRoom />
-    <RoomCard />
+    <RoomCard :rooms="rooms" />
   </div>
 </template>
 
@@ -11,13 +11,18 @@ import CreateRoom from "@/components/CreateRoom";
 export default {
   name: "lobby",
   data() {
-    return {};
+    return {
+      rooms: this.$store.state.rooms
+    };
   },
   components: {
     RoomCard,
     CreateRoom
   },
-  methods: {}
+  methods: {},
+  created() {
+    this.$store.dispatch("find");
+  }
 };
 </script>
 

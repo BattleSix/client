@@ -2,53 +2,22 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import io from 'socket.io-client'
+import router from '../router/index'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     baseUrl: 'http://localhost:3000',
-    // socket: io('http://localhost:3000'),
-    groupA: {
-      score: 120,
-      players: [
-        {
-          id: 123344,
-          name: "ghozi",
-          score: 30
-        },
-        {
-          id: 198944,
-          name: "andreas",
-          score: 30
-        },
-        {
-          id: 122392,
-          name: "aldi",
-          score: 30
-        }
-      ]
-    },
-    groupB: {
-      score: 0,
-      players: [
-        {
-          id: 123344,
-          name: "kosasih",
-          score: 30
-        },
-        {
-          id: 198944,
-          name: "botol",
-          score: 30
-        },
-        {
-          id: 122392,
-          name: "mouse",
-          score: 30
-        }
-      ]
-    },
+    socket: io('http://localhost:3000'),
+    // groupA: {
+    //   score: 120,
+    //   players: []
+    // },
+    // groupB: {
+    //   score: 0,
+    //   players: []
+    // },
     rooms: [],
     player: {
       id: 123344,
@@ -57,6 +26,7 @@ export default new Vuex.Store({
     },
     room: {
       name: 'bakso',
+      description: `kuy masukk`,
       groupA: {
         score: 80,
         players: []
@@ -76,17 +46,69 @@ export default new Vuex.Store({
     CREATE_PLAYER(state, payload) {
       state.player = payload
       localStorage.setItem('token', payload.id)
+    },
+    ADD_PLAYER_TOGROUP(state) {
+      if (state.groupA.players.length < 3) {
+        state.groupA.players.push(state.player)
+      } else if (state.groupB.players.length < 3) {
+        state.groupB.players.push(state.player)
+      }
+    },
+    UPDATEROOMS(state, payload) {
+      state.rooms = payload
     }
   },
   actions: {
     findRoom(context) {
-
+      axios({
+        method: `get`,
+        url: `${context.state.baseUrl}`
+      })
+        .then(({ data }) => {
+          context.commit('UPDATEROOMS', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    findByIdRoom(context) {
-
+    findByIdRoom(context, id) {
+      axios({
+        method: 'get',
+        url: `${context.state.baseUrl}/${id}`
+      })
+        .then(({ data }) => {
+          console.log(data, `<<<<<<<<<<<<<<<<<<<<<<< room by id`)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
-    createRoom(context) {
+    createRoom(context, payload) {
+      let room = {
+        name: payload.name,
+        description: payload.description,
+        status: `Waiting`,
+        groupA: { score: 0, players: [context.state.player] },
+        groupB: { score: 0, players: [] },
+        roomMaster: {
+          name: context.state.player.name,
+          id: context.state.player.id
+        }
+      }
 
+      axios({
+        method: 'post',
+        url: `${context.state.baseUrl}`,
+        data: room
+      })
+        .then(({ data }) => {
+          context.dispatch('findRoom')
+          context.dispatch('findByIdRoom', data._id)
+          router.push('/room')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     removeRoom(context) {
 

@@ -41,11 +41,14 @@
 </template>
 
 <script>
+import io from "socket.io-client";
 import { mapState } from "vuex";
 export default {
   name: "game-room",
   data() {
-    return {};
+    return {
+      socket: io("http://localhost:3000")
+    };
   },
   components: {},
   computed: mapState(["room"]),
@@ -53,7 +56,11 @@ export default {
     startGame() {
       this.$router.push("/arena");
     }
+  },
+  created() {
+    this.socket.on("notificationNewPlayer", function() {});
   }
+  //created ada socket untuk listen perubahan player << rooms >>ID this.$router.params.id
 };
 </script>
 

@@ -74,17 +74,34 @@ export default new Vuex.Store({
           console.log(err)
         })
     },
-    findByIdRoom(context, id) {
-      axios({
-        method: 'get',
-        url: `${context.state.baseUrl}/${id}`
-      })
-        .then(({ data }) => {
-          context.commit('UPDATE_ROOM', data)
+    findByIdRoom(context, payload) {
+      if (!payload) {
+        socket.on('joingroup', function (id) {
+          axios({
+            method: 'get',
+            url: `${context.state.baseUrl}/${id}`
+          })
+            .then(({ data }) => {
+              context.commit('UPDATE_ROOM', data)
+              router.push(`/room/${id}`)
+            })
+            .catch(err => {
+              console.log(err)
+            })
         })
-        .catch(err => {
-          console.log(err)
+      } else {
+        axios({
+          method: 'get',
+          url: `${context.state.baseUrl}/${payload}`
         })
+          .then(({ data }) => {
+            context.commit('UPDATE_ROOM', data)
+            router.push(`/room/${payload}`)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
     },
     createRoom(context, payload) {
       let room = {
@@ -107,7 +124,6 @@ export default new Vuex.Store({
         .then(({ data }) => {
           context.dispatch('findRoom')
           context.dispatch('findByIdRoom', data._id)
-          router.push('/room')
         })
         .catch(err => {
           console.log(err)
@@ -128,8 +144,10 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          context.dispatch('findByIdRoom', id)
-          router.push('/room')
+          console.log('update success')
+          context.dispatch('findRoom')
+          router.push(`/room/${id}`)
+          socket.emit('addplayer', context.state.player)
         })
         .catch(err => {
           console.log(err)

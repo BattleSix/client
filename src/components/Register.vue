@@ -40,7 +40,7 @@ export default {
 
         let player = {
           id: id,
-          username: this.username,
+          name: this.username,
           score: 0
         };
         this.$store.commit("CREATE_PLAYER", player);

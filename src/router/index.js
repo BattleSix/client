@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/arena',
+    path: '/arena/:id',
     name: 'game-arena',
     component: GameArena
   },
@@ -24,7 +24,7 @@ const routes = [
     component: Lobby
   },
   {
-    path: '/room',
+    path: '/room/:id',
     name: 'game-room',
     component: GameRoom
   },

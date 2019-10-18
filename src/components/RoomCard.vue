@@ -13,10 +13,10 @@
             <v-list-item-title class="headline mb-1">Ghozi's Game</v-list-item-title>
             <v-list-item-subtitle>Sini lu kalo berani!</v-list-item-subtitle>
             <v-list-item-action-text class="title">
-              <i class="fas fa-users"></i>5/6
+              <i class="fas fa-users" style="color: grey"></i>5/6
             </v-list-item-action-text>
             <v-list-item-action-text class="title">
-              <i class="fas fa-crown"></i>ghozi
+              <i class="fas fa-crown" style="color:gold;"></i>ghozi
             </v-list-item-action-text>
           </v-list-item-content>
 
@@ -26,7 +26,7 @@
         </v-list-item>
 
         <v-card-actions>
-          <v-btn text>Join Room</v-btn>
+          <v-btn text @click="joinRoom">Join Room</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -74,6 +74,11 @@ export default {
   name: "room-card",
   data() {
     return {};
+  },
+  methods: {
+    joinRoom() {
+      this.$router.push("/room");
+    }
   }
 };
 </script>
